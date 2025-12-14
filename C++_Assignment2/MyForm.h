@@ -4,75 +4,111 @@ namespace $safeprojectname$ {
 
 	using namespace System;
 	using namespace System::ComponentModel;
-	using namespace System::Collections;
 	using namespace System::Windows::Forms;
-	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for MyForm
-	/// </summary>
-	public ref class MyForm : public System::Windows::Forms::Form
+	public ref class MyForm : public Form
 	{
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~MyForm()
 		{
 			if (components)
-			{
 				delete components;
-			}
 		}
-	private: System::Windows::Forms::Button^ button1;
-	protected:
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		System::ComponentModel::Container ^components;
+		Label^ lblUsername;
+		Label^ lblPassword;
+		TextBox^ txtUsername;
+		TextBox^ txtPassword;
+		Button^ btnLogin;
+		LinkLabel^ lnkForget;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->SuspendLayout();
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(135, 119);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			// 
-			// MyForm
-			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(284, 261);
-			this->Controls->Add(this->button1);
-			this->Name = L"MyForm";
-			this->Text = L"MyForm";
-			this->ResumeLayout(false);
+			this->lblUsername = gcnew Label();
+			this->lblPassword = gcnew Label();
+			this->txtUsername = gcnew TextBox();
+			this->txtPassword = gcnew TextBox();
+			this->btnLogin = gcnew Button();
+			this->lnkForget = gcnew LinkLabel();
 
+			this->SuspendLayout();
+
+			// lblUsername
+			this->lblUsername->Text = L"Username";
+			this->lblUsername->Location = Point(40, 30);
+			this->lblUsername->Size = Drawing::Size(100, 20);
+
+			// txtUsername
+			this->txtUsername->Location = Point(40, 50);
+			this->txtUsername->Size = Drawing::Size(200, 25);
+
+			// lblPassword
+			this->lblPassword->Text = L"Password";
+			this->lblPassword->Location = Point(40, 85);
+			this->lblPassword->Size = Drawing::Size(100, 20);
+
+			// txtPassword
+			this->txtPassword->Location = Point(40, 105);
+			this->txtPassword->Size = Drawing::Size(200, 25);
+			this->txtPassword->PasswordChar = '*';
+
+			// btnLogin
+			this->btnLogin->Text = L"Login";
+			this->btnLogin->Location = Point(40, 150);
+			this->btnLogin->Size = Drawing::Size(200, 32);
+			this->btnLogin->Click += gcnew EventHandler(this, &MyForm::btnLogin_Click);
+
+			// lnkForget (Forget Password)
+			this->lnkForget->Text = L"Forgot password?";
+			this->lnkForget->Location = Point(40, 190);
+			this->lnkForget->AutoSize = true;
+			this->lnkForget->LinkColor = Color::Gray;
+			this->lnkForget->ActiveLinkColor = Color::Blue;
+			this->lnkForget->VisitedLinkColor = Color::Purple;
+			this->lnkForget->Click += gcnew EventHandler(this, &MyForm::lnkForget_Click);
+
+			// MyForm
+			this->ClientSize = Drawing::Size(284, 240);
+			this->StartPosition = FormStartPosition::CenterScreen;
+			this->Text = L"Login";
+
+			this->Controls->Add(this->lblUsername);
+			this->Controls->Add(this->txtUsername);
+			this->Controls->Add(this->lblPassword);
+			this->Controls->Add(this->txtPassword);
+			this->Controls->Add(this->btnLogin);
+			this->Controls->Add(this->lnkForget);
+
+			this->ResumeLayout(false);
 		}
 #pragma endregion
+
+	private:
+		System::Void btnLogin_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			if (txtUsername->Text == "admin" && txtPassword->Text == "1234")
+			{
+				MessageBox::Show("Login Success");
+			}
+			else
+			{
+				MessageBox::Show("Invalid Username or Password");
+			}
+		}
+
+		System::Void lnkForget_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			MessageBox::Show("Contact admin to reset your password");
+		}
 	};
 }
